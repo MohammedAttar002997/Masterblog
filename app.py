@@ -50,5 +50,29 @@ def delete(post_id):
     # Find the blog post with the given id and remove it from the list
     # Redirect back to the home page
     return redirect(url_for('index'))
+
+
+@app.route('/update/<int:post_id>', methods=['GET', 'POST'])
+def update(post_id):
+    list_of_json_data = read_json_file('blog_post.json')
+    # Find the post with the matching ID
+    post_to_update = next((post for post in list_of_json_data if post['id'] == post_id), None)
+    if post_to_update is None:
+        # Post not found
+        return "Post not found", 404
+
+    if request.method == 'POST':
+        # Update the dictionary values with form data
+        post_to_update['author'] = request.form.get('author')
+        post_to_update['title'] = request.form.get('title')
+        post_to_update['content'] = request.form.get('content')
+
+        write_json_file('blog_post.json', list_of_json_data)
+        return redirect(url_for('index'))
+
+    # For GET, render a form pre-filled with the current post data
+    return render_template('update.html', post=post_to_update)
+
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)

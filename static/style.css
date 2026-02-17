@@ -47,7 +47,20 @@ h1 {
 .delete-btn:hover {
     background-color: #cc0000;
 }
+.update-btn {
+    background-color: #f39c12; /* Orange */
+    color: white;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background 0.3s;
+}
 
+.update-btn:hover {
+    background-color: #e67e22;
+}
 /* Optional: Adding some spacing to the post card */
 /*.post {*/
 /*    background: white;*/
